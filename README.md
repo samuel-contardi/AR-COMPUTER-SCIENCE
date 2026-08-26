@@ -1,4 +1,6 @@
-<img width="1024" height="1024" alt="Gemini_Generated_Image_gbqk90gbqk90gbqk" src="https://github.com/user-attachments/assets/d9ea42c1-9c42-4c09-b230-66437ba9d2a9" />
+<img width="720" height="720" alt="Gemini_Generated_Image_gbqk90gbqk90gbqk" src="https://github.com/user-attachments/assets/d9ea42c1-9c42-4c09-b230-66437ba9d2a9" />
+
+
 ### Seção 1
 * **Grupo e Integrantes:** Grupo 7 — ZolpiBeat
 
