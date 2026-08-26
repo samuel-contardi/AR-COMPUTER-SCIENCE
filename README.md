@@ -1,4 +1,4 @@
-<img width="720" height="720" alt="Gemini_Generated_Image_gbqk90gbqk90gbqk" src="https://github.com/user-attachments/assets/d9ea42c1-9c42-4c09-b230-66437ba9d2a9" />
+<img width="720" height="720" alt="Gemini_Generated_Image_p5050p5050p5050p" src="https://github.com/user-attachments/assets/9be6b8c6-161e-4091-9fd5-b290a2263c35" />
 
 
 ### Seção 1
