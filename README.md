@@ -1,121 +1,102 @@
-<img width="720" height="720" alt="Gemini_Generated_Image_p5050p5050p5050p" src="https://github.com/user-attachments/assets/9be6b8c6-161e-4091-9fd5-b290a2263c35" />
+<img width="720" height="720" alt="ZolpiBeat" src="https://github.com/user-attachments/assets/9be6b8c6-161e-4091-9fd5-b290a2263c35" />
 
+# Bateria — ZolpiBeat (Grupo 7)
 
-### Seção 1
-* **Grupo e Integrantes:** Grupo 7 — ZolpiBeat
+Ambiente de realidade estendida no navegador em que uma **bateria acústica desmontada** está espalhada no chão de uma sala de ensaio, e a tarefa é **montá-la**: pegar cada peça e encaixá-la no suporte de ferro correspondente.
 
+Estado atual: **Módulo 03** (etiqueta `modulo-03`). A cena já é desenhada como árvore de objetos, o laço avança contra o relógio e o custo do quadro aparece dentro da própria cena. Pegar e encaixar com as mãos ainda não existe: é assunto dos módulos de manipulação.
 
-Samuel Ferreira Contardi  
-Willington Gabriel de Andrade  
-Nadine Gomes Gallego  
-Vinicius dos Santos Souza  
-Murilo Silva Régo  
+## Integrantes
 
+Samuel Ferreira Contardi · Willington Gabriel de Andrade · Nadine Gomes Gallego · Vinicius dos Santos Souza · Murilo Silva Régo
 
-* **Cena:** Bateria acústica desmontada em ambiente de ensaio.
-* **Descricao da Cena:** Peças de bateria no chão que você pega e bota no ferro até montar tudo.
-* **Por que esta cena:** Desenvolvendo conseitos de colisão aceitando o desafio para modelar encaixes com regras e não ter coordenadas fixas dos objetos da bateria
-* **B.o:** Escopo pode crescer de acordo com o som
+## O que é o ambiente
 
+| | |
+|---|---|
+| **Cena** | Bateria acústica desmontada em ambiente de ensaio |
+| **Tarefa** | Montar a bateria pegando cada peça do chão e encaixando-a no suporte de ferro correspondente |
+| **Peças** | Bumbo (⌀ 0,60 m), caixa (⌀ 0,35 m), prato de chimbal e prato de ataque (⌀ 0,40 m cada) |
+| **Escala** | 1 unidade = 1 metro |
+| **Tecnologia** | TypeScript, three.js, Vite, API WebXR do navegador |
 
-### Seção 2
-Você entra, vê o bumbo e os pratos no chão. Pega a peça com a mão, leva até a haste de ferro e bota. Se tiver perto, ela gruda.
+A especificação completa, com as decisões que mudaram desde o Módulo 01 e o motivo, está em [`docs/especificacao.md`](docs/especificacao.md).
 
+## Como rodar
 
-* **Mãos:** Pega a peça e solta.
-* **Visor:** Você anda em volta da bateria de verdade.
+**Requisitos:** [Node.js](https://nodejs.org) em versão recente (20.19 ou superior, ou 22.12 ou superior, exigência do Vite) e um navegador com WebGL (Chrome, Edge ou Firefox atuais).
 
+```bash
+git clone https://github.com/samuel-contardi/ar-computer-science.git
+cd ar-computer-science
+git checkout modulo-03
+npm install
+npm run dev
+```
 
-### Seção 3
+O Vite mostra dois endereços no terminal:
 
+- **Local:** `https://localhost:5173`, para abrir no próprio computador.
+- **Network:** `https://<IP-do-computador>:5173`, para abrir em outro aparelho na mesma rede Wi-Fi.
 
-| Objeto | Quantos | Origem | Move? | Observação |
-| :--- | :--- | :--- | :--- | :--- |
-| Bumbo | 1 | Baixado | Sim | Peça grande |
-| Caixa | 1 | Baixado | Sim | Tambor pequeno |
-| Prato | 2 | Baixado | Sim | Disco de metal |
+A página é servida em **HTTPS com certificado autoassinado**, porque a API WebXR só existe em contexto seguro. Na primeira vez o navegador avisa que a conexão não é privada: escolha *Avançado → Continuar*. Sem HTTPS a página abre, mas o botão de sondagem responde como se o aparelho não tivesse suporte, e a página avisa isso no diário.
 
+Outros comandos:
 
-### Seção 4
-* **Tamanho do ambiente:** Aonde vc estiver.
-* **Tamanho dos objetos:** Bumbo de 60 centímetros, Prato de 40 centímetros.
-* **Local de apoio:** No chão virtual.
-* **Escalas:** Tamanho real no visor (1:1), tamanho pequeno de brinquedo na câmera do celular (1:5).
+| Comando | O que faz |
+|---|---|
+| `npm run typecheck` | Confere os tipos sem gerar arquivos |
+| `npm run build` | Confere os tipos e gera a versão de produção em `dist/` |
+| `npm run preview` | Serve a versão de produção |
 
+## O que se vê ao abrir
 
-### Seção 5
+O regime em **janela** não pede equipamento algum e abre sozinho. Passo a passo da demonstração:
 
+1. **A cena abre com os objetos prometidos:** bumbo, caixa e os dois pratos soltos no chão, e o suporte de ferro ao centro.
+2. **Um objeto se move junto com outro:** o poste do suporte balança de leve, e as hastes e o painel, que são filhos dele, balançam juntos sem que nenhuma linha copie a rotação.
+3. **Um objeto troca de pai e continua onde estava:** o botão *Prender o prato de ataque na haste* faz o prato de ataque deixar de ser filho do chão e passar a ser filho de `haste-do-ataque`. O diário da página registra a posição de mundo antes, a posição depois e o desvio medido em metros.
+4. **O indicador de custo do quadro está dentro da cena:** o painel preso ao poste mostra o teto do quadro, o intervalo médio e o pior, o custo do nosso trabalho, a porcentagem de quadros acima do teto, as chamadas de desenho e os triângulos.
 
-| Ação | O que a pessoa faz | O que o sistema faz | Se não puder |
-| :--- | :--- | :--- | :--- |
-| Olhar | Mira no objeto | Pinta de amarelo | Nada |
-| Pegar | Clica e segura | Peça gruda no cursor | Apita som grave |
-| Soltar | Solta o clique | Peça cai ou gruda no ferro | Peça volta pro chão |
+Abaixo da cena a página mostra a **estrutura da cena** em árvore, o **relatório do que o aparelho responde sem sessão** e o **diário de atividades**. O botão *Sondar capacidades do aparelho* abre uma sessão XR de teste (exige toque do usuário e um aparelho compatível) e mostra na própria página o que o aparelho concedeu, negou ou não soube dizer.
 
+## Os três regimes
 
+| Regime | O que faz com o mundo de quem observa | Estado |
+|---|---|---|
+| **Janela** (`inline`) | Mostra a cena por uma janela, sem tocá-lo | Funcionando |
+| **Visor** (`immersive-vr`) | Substitui o mundo por inteiro | Declarado e sondado; ainda não validado em aparelho real |
+| **Câmera** (`immersive-ar`) | Mantém o mundo e deposita a cena sobre ele | Declarado e sondado; ainda não validado em aparelho real |
 
+## Aparelhos em que já foi visto funcionando
 
-### Seção 6
-* **Estado inicial:** 4 peças jogadas no chão.
-* **Estado final:** 4 peças grudadas nos ferros.
-* **Validação:** Tanto faz a ordem. O sistema vê se a contagem de peças encaixadas é igual a 4.
+> **Pendente:** o registro dos aparelhos testados (aparelho, regime que abriu, o que não abriu) ainda não foi escrito. Ele será mantido em `docs/aparelhos.md` e deve ser preenchido depois que alguém de fora do grupo abrir o ambiente a partir da etiqueta `modulo-03`, em outra máquina, seguindo só este arquivo.
 
+Medição de custo do quadro feita pelo grupo (desktop, Google Chrome, Intel i7, GPU dedicada, 60 Hz): custo médio de 1,82 ms, pico de 4,10 ms, contra o teto declarado de 16,7 ms. Detalhes na Seção 10 da especificação.
 
-### Seção 7
-* **Folga de posição:** A decidir.
-* **Folga de ângulo:** A decidir.
+## Como o código está organizado
 
+```
+src/bancada/
+├── main.ts              # monta a página: cena, relatório, sonda, diário e botões
+├── dominio/dominio.ts   # tarefa, peças e sockets, escritos como dado tipado
+├── modes/               # os três regimes (regimes.ts), verificação e limites da janela
+├── devices/             # sonda de capacidades: recursos, graus de liberdade, estabilidade
+├── core/
+│   ├── cena.ts          # a cena como árvore, em geometria crua e em metros
+│   ├── hierarquia.ts    # reparentar(): troca de pai preservando a posição no mundo
+│   ├── relogio.ts       # avanço pelo tempo transcorrido, com teto de salto
+│   ├── orcamento.ts     # tetos por quadro e medição de custo e intervalo
+│   └── palco.ts         # canvas, câmera e ajuste de tamanho
+├── app/oficina.ts       # compõe tudo: laço, balanço do poste, painel, prender/soltar
+├── relatorio/           # relatório visível na página e diário de atividades
+└── ui/painel.ts         # o painel de custo desenhado dentro da cena
+```
 
+## Decisões de arquitetura
 
-
-### Seção 8
-* **Objeto mirado:** Fica amarelo.
-* **Objeto apanhado:** Fica meio transparente.
-* **Encaixe aceito:** Pisca verde.
-* **Encaixe recusado:** Pisca vermelho e cai no chão.
-* **Tarefa concluída:** Brilha.
-
-
-### Seção 9
-(A decidir, nada confirmado)
-| Aspecto | Na tela | No visor | Pela câmera |
-| :--- | :--- | :--- | :--- |
-| **Como se olha** | Arrasta o mouse | Mexe a cabeça | Aponta o celular |
-| **Como se aponta e age** | Clica e arrasta | Aperta o gatilho da mão | Toca no vidro do celular |
-| **Escala da cena** | Tela cheia | Tamanho real | Pequeno na mesa |
-| **O que a cena faz de diferente** | Botão 2D | Anda 360 graus | Gruda na mesa |
-| **O que não existe neste regime** | Rastreamento de cabeça | Botões de mouse | Andar pra trás |
-
-
-### Seção 10
-* **Total de objetos:** 4 objetos no total.
-* **Meta de fluidez:** 24 quadros por segundo.
-* **Repetição:** Suporte da bateria e pratos.
-* **Ordem de degradação:** 1º Tira sombra, 2º Tira textura
-
-
-### Seção 11
-* **Aparelho não suporta o regime:** Mostra mensagem "Não roda" e abre no modo tela normal.
-* **Permissão de câmera negada:** Mostra mensagem "Ligue a câmera" e para.
-* **Perda de rastreamento:** O objeto trava no ar e fica transparente até a câmera achar o chão de novo.
-* **Fora do alcance:** O objeto solta da mão e cai se ir além de 2 metros.
-
-
-### Seção 12
-(a definir os modelos)
-| Arquivo | Origem | Licença | Endereço (URL) |
-| :--- | :--- | :--- | :--- |
-| `bateria.fbx` | procurar |  |  |
-
-
-### Seção 13
-* A trabalhar no plano de ação
-
-
----
-
-
-### Seção 14
-* **Riscos:** A peça atravessar o chão se mexer rápido. Mitigação: Ativar colisão contínua na Unity.
-* **Decisões em aberto:** Áudio simples ou 3D: Definir se o som toca direto ou se muda de lado conforme você anda.
-* **Declaração de IA:** Usamos o ChatGPT para formatar este texto em Markdown e fazer a tabela rápida. O grupo revisou os números.
+- **Árvore, e não lista de coordenadas.** Cada nó tem transformação própria em relação ao pai; o poste balançar leva as hastes e o painel sem cálculo manual.
+- **Trocar de pai, e não recalcular a posição a cada quadro.** `reparentar()` faz a conta uma vez (`M_local = M_pai⁻¹ · M_mundo`) e devolve o desvio em metros.
+- **Tempo transcorrido, e não contagem de quadros.** O ambiente se comporta igual em máquinas de velocidades diferentes.
+- **Perguntar ao aparelho antes de assumir.** Recurso ausente, negado e indeterminado são tratados como situações distintas.
+- **Orçamento declarado antes de haver conteúdo pesado:** 16,7 ms na janela e 11,1 ms no visor.
